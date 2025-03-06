@@ -1,32 +1,21 @@
-import { useState, useEffect } from 'react';
-import './App.css';
-import axios from 'axios';
+import { useEffect } from "react";
+import { PdfTeXEngine, XeTeXEngine, DvipdfmxEngine } from "swiftlatex";
 
 function App() {
-  const [pdfUrl, setPdfUrl] = useState(null);
-  const fetchPdf = async () => {
-    const response = await axios.get("http://localhost:5000/generate-pdf", {
-      responseType: "blob",
-    })
-    const url = URL.createObjectURL(response.data);
-    setPdfUrl(url);
-  }
+  useEffect(() => {
+    const loadEngine = async () => {
+      try {
+        const pdftex = new PdfTeXEngine();
+        console.log("PdfTeXEngine loaded!", pdftex);
+      } catch (error) {
+        console.error("Error loading PdfTeXEngine:", error);
+      }
+    };
 
-  return (
-    <>
-      <div>
-      <h1>API response:</h1>
-      <button onClick={fetchPdf}>Generate PDF</button>
-      {pdfUrl && (
-        <iframe 
-        src={pdfUrl}
-        width="100%"
-        height="500px"
-        style={{border: "none", marginTop: "20px"}}/>
-      )}
-      </div>
-    </>
-  );
+    loadEngine();
+  }, []);
+
+  return <div>LaTeX Engine Ready!</div>;
 }
 
-export default App
+export default App;
