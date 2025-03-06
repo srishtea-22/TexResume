@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+#swiftlatex files
+/public/*.js
+/public/*.wasm
