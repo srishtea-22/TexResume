@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { PdfTeXEngine, XeTeXEngine, DvipdfmxEngine } from "swiftlatex";
+import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import './App.css'
+import ProfileSection from "./components/FormSections/ProfileSection"
+import EducationSection from "./components/FormSections/EducationSection"
+import SkillsSection from "./components/FormSections/SkillsSection"
+import WorkSection from "./components/FormSections/WorkSection"
 
 function App() {
   const [pdf, setpdf] = useState(null);
@@ -27,7 +32,12 @@ function App() {
         <Sidebar />
       </aside>
       <main>
-        <form></form>
+            <Routes>
+                <Route path="/" element={<ProfileSection />}></Route>
+                <Route path="/education" element={<EducationSection />}></Route>
+                <Route path="/skills" element={<SkillsSection />}></Route>
+                <Route path="/work" element={<WorkSection />}></Route>
+            </Routes>
         <div className="pdf-wrapper">
         {pdf && (
           <iframe
