@@ -1,38 +1,15 @@
-import { Route, Routes, NavLink } from "react-router-dom"
-
-import ProfileSection from "./FormSections/ProfileSection"
-import EducationSection from "./FormSections/EducationSection"
-import SkillsSection from "./FormSections/SkillsSection"
-import WorkSection from "./FormSections/WorkSection"
+import { NavLink } from "react-router-dom"
 
 const sidebarData = [
-    {
-        title: "profile",
-        path: "/"
-    },
-    {
-        title: "education",
-        path: "/education"
-    },
-    {
-        title: "skills",
-        path: "/skills"
-    },
-    {
-        title: "work",
-        path: "/work"
-    },
+    {title: "profile", path: "/"},
+    {title: "education", path: "/education"},
+    {title: "skills", path: "/skills"},
+    {title: "work", path: "/work"},
 ]
 
 function Sidebar () {
     return (
         <div className="sidebar-container">
-            <Routes>
-                <Route path="/" element={<ProfileSection />}></Route>
-                <Route path="/education" element={<EducationSection />}></Route>
-                <Route path="/skills" element={<SkillsSection />}></Route>
-                <Route path="/work" element={<WorkSection />}></Route>
-            </Routes>
             <ul className="nav-list">
                 {sidebarData.map((item, index) => {
                     return (
