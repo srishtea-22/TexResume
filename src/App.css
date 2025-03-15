@@ -23,3 +23,15 @@ footer {
   display: flex;
   flex-grow: 1;
 }
+
+main {
+  display: flex;
+}
+
+.nav-list {
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-inline-start: 50px;
+}
