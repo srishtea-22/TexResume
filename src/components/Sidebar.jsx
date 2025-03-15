@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom"
 
 const sidebarData = [
-    {title: "profile", path: "/"},
-    {title: "education", path: "/education"},
-    {title: "skills", path: "/skills"},
-    {title: "work", path: "/work"},
+    {title: "Profile", path: "/"},
+    {title: "Education", path: "/education"},
+    {title: "Projects", path: "/projects"},
+    {title: "Skills", path: "/skills"},
+    {title: "Work", path: "/work"},
 ]
 
 function Sidebar () {

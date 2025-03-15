@@ -7,6 +7,7 @@ import ProfileSection from "./components/FormSections/ProfileSection"
 import EducationSection from "./components/FormSections/EducationSection"
 import SkillsSection from "./components/FormSections/SkillsSection"
 import WorkSection from "./components/FormSections/WorkSection"
+import ProjectSection from "./components/FormSections/ProjectSection";
 
 function App() {
   const [pdf, setpdf] = useState(null);
@@ -35,6 +36,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<ProfileSection />}></Route>
                 <Route path="/education" element={<EducationSection />}></Route>
+                <Route path="/projects" element={<ProjectSection />}></Route>
                 <Route path="/skills" element={<SkillsSection />}></Route>
                 <Route path="/work" element={<WorkSection />}></Route>
             </Routes>
