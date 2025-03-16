@@ -40,6 +40,8 @@ body {
 h1 {
   font-size: 3em;
   line-height: 1.1;
+  margin-block-start: 0.65em;
+  margin-block-end: 0.65em;
 }
 
 button {
