@@ -22,6 +22,7 @@ footer {
 .main-body {
   display: flex;
   flex-grow: 1;
+  width: 100%;
 }
 
 main {
@@ -34,4 +35,13 @@ main {
   flex-direction: column;
   gap: 2rem;
   padding-inline-start: 50px;
+}
+
+.pdf-wrapper {
+  position: fixed;
+  right: 0;
+  > iframe {
+    width: 50vw;
+    height: 67vh;
+  }
 }
