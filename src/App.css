@@ -27,6 +27,7 @@ footer {
 
 main {
   display: flex;
+  flex-grow: 1;
 }
 
 .nav-list {
@@ -38,10 +39,36 @@ main {
 }
 
 .pdf-wrapper {
-  position: fixed;
-  right: 0;
   > iframe {
     width: 50vw;
     height: 67vh;
   }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-grow: 1;
+  padding: 0 4rem;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+input {
+  border: none;        
+  border-bottom: 2px solid grey; 
+  outline: none;         
+  background: transparent;
+  padding: 5px;         
+  width: 100%;           
+  font-size: 16px;       
+}
+
+input:focus {
+  border-bottom: 2px solid #535bf2; 
 }
