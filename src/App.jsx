@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { PdfTeXEngine, XeTeXEngine, DvipdfmxEngine } from "swiftlatex";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import './App.css'
@@ -8,22 +6,29 @@ import EducationSection from "./components/FormSections/EducationSection"
 import SkillsSection from "./components/FormSections/SkillsSection"
 import WorkSection from "./components/FormSections/WorkSection"
 import ProjectSection from "./components/FormSections/ProjectSection";
+import { useForm, FormProvider } from "react-hook-form";
+import { useAtom } from "jotai";
+import { resumeAtom } from "./atoms/resume";
+import { generateLatexTemplate } from "./utils/template";
+import { compilePdf } from "./utils/compilePdf";
 
 function App() {
-  const [pdf, setpdf] = useState(null);
+  const methods = useForm();
+  const [resume, setResume] = useAtom(resumeAtom);
 
-  async function compilePdf() {
-    const engine = new PdfTeXEngine();
-    await engine.loadEngine();
-    
-    engine.writeMemFSFile("main.tex", "\\documentclass{article}\\begin{document}Hello, World!\\end{document}");
-    engine.setEngineMainFile("main.tex");
-    let r = await engine.compileLaTeX();
-
-    setpdf(new Blob([r.pdf], {type: "application/pdf"}));
+  async function handleGeneratePdf(data) {
+      setResume({ ...resume, isLoading: true });
+      try {
+          const latexContent = generateLatexTemplate(data);
+          const pdfBlob = await compilePdf(latexContent);
+          setResume({ ...resume, pdfUrl: URL.createObjectURL(pdfBlob), isLoading: false });
+      } catch (error) {
+          setResume({ ...resume, isError: true, isLoading: false });
+      }
   }
   
   return (
+    <FormProvider {...methods}>
     <div className="app-container">
       <header className="app-header">
         <h1>TexResume</h1>
@@ -41,20 +46,17 @@ function App() {
                 <Route path="/work" element={<WorkSection />}></Route>
             </Routes>
         <div className="pdf-wrapper">
-        {pdf && (
-          <iframe
-          src={URL.createObjectURL(pdf)}
-          height="100%"
-          width="500px"
-          />
+        {resume.pdfUrl && (
+          <iframe src={resume.pdfUrl} height="100%" width="500px" />
         )}
         </div>
       </main>
       </div>
       <footer className="button-container">
-        <button onClick={compilePdf}>Generate PDF</button>
+        <button onClick={methods.handleSubmit(handleGeneratePdf)}>Generate PDF</button>
       </footer>
     </div>
+    </FormProvider>
   );
 }
 
