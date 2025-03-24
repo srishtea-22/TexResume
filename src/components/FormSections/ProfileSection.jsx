@@ -1,49 +1,33 @@
-import { useState } from "react"
+import { useFormContext } from "react-hook-form";
 
 export default function ProfileSection() {
-    const [profileData, setProfileData] = useState({
-        firstName: "",
-        lastName: "",
-        location: "",
-        mobile: "",
-        email: "",
-        linkedin: "",
-        github: "",
-    });
-
-    const handleChange = (e) => {
-        setProfileData({...profileData, [e.target.name]: e.target.value});
-    };
+    const { register } = useFormContext();
 
     return (
         <div className="form">
             <div className="form-input">
-            <label htmlFor="firstName">First Name</label>
-            <input type="text" name="firstName" value={profileData.firstName} onChange={handleChange}/>
+                <label htmlFor="fullName">Full Name</label>
+                <input type="text" {...register("headings.fullName")} />
             </div>
             <div className="form-input">
-            <label htmlFor="lastName">Last Name</label>
-            <input type="text" name="lastName" value={profileData.lastName} onChange={handleChange}/>
+                <label htmlFor="location">Location</label>
+                <input type="text" {...register("headings.location")} />
             </div>
             <div className="form-input">
-            <label htmlFor="location">Location</label>
-            <input type="text" name="firstName" value={profileData.location} onChange={handleChange}/>
+                <label htmlFor="mobile">Mobile</label>
+                <input type="tel" {...register("headings.mobile")} />
             </div>
             <div className="form-input">
-            <label htmlFor="mobile">Mobile</label>
-            <input type="tel" name="mobile" value={profileData.mobile} onChange={handleChange}/>
+                <label htmlFor="email">Email</label>
+                <input type="email" {...register("headings.email")} />
             </div>
             <div className="form-input">
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" value={profileData.email} onChange={handleChange}/>
+                <label htmlFor="linkedin">LinkedIn</label>
+                <input type="url" {...register("headings.linkedin")} />
             </div>
             <div className="form-input">
-            <label htmlFor="linkedin">LinkedIn</label>
-            <input type="url" name="linkedin" value={profileData.linkedin} onChange={handleChange}/>
-            </div>
-            <div className="form-input">
-            <label htmlFor="github">Github</label>
-            <input type="url" name="github" value={profileData.github} onChange={handleChange}/>
+                <label htmlFor="github">GitHub</label>
+                <input type="url" {...register("headings.github")} />
             </div>
         </div>
     )
