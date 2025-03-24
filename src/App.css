@@ -41,7 +41,7 @@ main {
 .pdf-wrapper {
   > iframe {
     width: 50vw;
-    height: 67vh;
+    height: 70vh;
   }
 }
 
