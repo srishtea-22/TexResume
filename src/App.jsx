@@ -11,12 +11,15 @@ import { useAtom } from "jotai";
 import { resumeAtom } from "./atoms/resume";
 import { generateLatexTemplate } from "./utils/template";
 import { compilePdf } from "./utils/compilePdf";
+import { useEffect, useState } from "react";
 
 function App() {
   const methods = useForm();
   const [resume, setResume] = useAtom(resumeAtom);
+  const [loading, setLoading] = useState(true);
 
   async function handleGeneratePdf(data) {
+    setLoading(true);
       setResume({ ...resume, isLoading: true });
       try {
           const latexContent = generateLatexTemplate(data);
@@ -26,6 +29,10 @@ function App() {
           setResume({ ...resume, isError: true, isLoading: false });
       }
   }
+  useEffect(() => {
+    methods.handleSubmit(handleGeneratePdf)();
+}, []);
+
   
   return (
     <FormProvider {...methods}>
@@ -46,8 +53,10 @@ function App() {
                 <Route path="/work" element={<WorkSection />}></Route>
             </Routes>
         <div className="pdf-wrapper">
+        {loading && <div className="loading-bar"></div>}
         {resume.pdfUrl && (
-          <iframe src={resume.pdfUrl} height="100%" width="500px" />
+          <iframe src={resume.pdfUrl} height="100%" width="500px" 
+          onLoad={() => setTimeout(() => setLoading(false), 500)}/>
         )}
         </div>
       </main>

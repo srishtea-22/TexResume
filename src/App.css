@@ -1,3 +1,12 @@
+@keyframes slide {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
 #root {
   display: flex;
   min-height: 100vh; 
@@ -8,6 +17,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  overflow: hidden;
 }
 
 header, footer {
@@ -44,7 +54,15 @@ main {
     height: 70vh;
   }
 }
-
+.loading-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 4px;
+  background-color: #007bff;
+  animation: slide 1.5s infinite linear;
+}
 .form {
   display: flex;
   flex-direction: column;
