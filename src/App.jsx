@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 function App() {
   const methods = useForm();
   const [resume, setResume] = useAtom(resumeAtom);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   async function handleGeneratePdf(data) {
     setLoading(true);
@@ -29,9 +29,6 @@ function App() {
           setResume({ ...resume, isError: true, isLoading: false });
       }
   }
-  useEffect(() => {
-    methods.handleSubmit(handleGeneratePdf)();
-}, []);
 
   
   return (
