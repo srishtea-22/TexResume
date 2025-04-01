@@ -7,27 +7,27 @@ export default function ProfileSection() {
         <div className="form">
             <div className="form-input">
                 <label htmlFor="fullName">Full Name</label>
-                <input type="text" {...register("headings.fullName")} />
+                <input type="text" {...register("headings.profile.fullName")} />
             </div>
             <div className="form-input">
                 <label htmlFor="location">Location</label>
-                <input type="text" {...register("headings.location")} />
+                <input type="text" {...register("headings.profile.location")} />
             </div>
             <div className="form-input">
                 <label htmlFor="mobile">Mobile</label>
-                <input type="tel" {...register("headings.mobile")} />
+                <input type="tel" {...register("headings.profile.mobile")} />
             </div>
             <div className="form-input">
                 <label htmlFor="email">Email</label>
-                <input type="email" {...register("headings.email")} />
+                <input type="email" {...register("headings.profile.email")} />
             </div>
             <div className="form-input">
                 <label htmlFor="linkedin">LinkedIn</label>
-                <input type="url" {...register("headings.linkedin")} />
+                <input type="url" {...register("headings.profile.linkedin")} />
             </div>
             <div className="form-input">
                 <label htmlFor="github">GitHub</label>
-                <input type="url" {...register("headings.github")} />
+                <input type="url" {...register("headings.profile.github")} />
             </div>
         </div>
     )
