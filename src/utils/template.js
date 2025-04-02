@@ -47,58 +47,91 @@ function generateProfile (profile) {
     \\end{center}`
 }
 
-function generateEducation (education) {
-  const {degree, schoolName, schoolLocation, gpa, startDate, endDate} = education;
+function generateEducation(education) {
+  if (!education) { return ` `;}
+
+  const { degree, schoolName, schoolLocation, gpa, startDate, endDate } = education;
+
+  const degreeLine = degree ? `\\textbf{${degree}}` : "";
+  const dateLine = startDate && endDate ? `\\textbf{${startDate} - ${endDate}}` : "";
+  const schoolLine = schoolName || schoolLocation ? `${schoolName || ""}, ${schoolLocation || ""}` : "";
+  const gpaLine = gpa ? `CGPA: ${gpa}` : "";
+
+  const educationInfo = 
+  [degreeLine, dateLine].filter(Boolean).join(" \\> ") + " \\\\ " +
+  [schoolLine, gpaLine].filter(Boolean).join(" \\> ") + " \\\\[1ex]";
 
   return `
+  \\section{ACADEMIC QUALIFICATIONS}
   \\begin{tabbing}
     \\hspace{16.5cm} \\= \\kill
-    \\textbf{${degree}} \\> \\textbf{${startDate} - ${endDate}} \\\\
-    ${schoolName}, ${schoolLocation} \\> CGPA: ${gpa} \\\\[1ex]
-  \\end{tabbing}`
+    ${educationInfo}
+  \\end{tabbing}`;
 }
 
-function generateSkills(skills){
-  const {progLang, frameworks, tools, others} = skills;
 
-  return `
+function generateSkills(skills) {
+  if (!skills) { return ` `;}
+
+  const { progLang, frameworks, tools, others } = skills;
+
+  const skillLines = [
+    progLang ? `\\item{\\textbf{Programming Languages}{ : ${progLang}}}` : "",
+    frameworks ? `\\item{\\textbf{Frameworks \\& Libraries}{ : ${frameworks}}}` : "",
+    tools ? `\\item{\\textbf{Tools \\& Technologies}{ : ${tools}}}` : "",
+    others ? `\\item{\\textbf{Other Skills}{ : ${others}}}` : ""
+  ].filter(Boolean).join("\n    ");
+
+  return skillLines
+    ? `
+    \\section{SKILLS}
   \\begin{itemize}[leftmargin=0in, label={}]
-    \\item{\\textbf{Programming Languages}{ : ${progLang}}}
-    \\item{\\textbf{Frameworks \\& Libraries}{ : ${frameworks}}}
-    \\item{\\textbf{Tools \\& Technologies}{ : ${tools}}}
-    \\item{\\textbf{Other Skills}{ : ${others}}}
-  \\end{itemize}
-  `
+    ${skillLines}
+  \\end{itemize}`
+    : ` `;
 }
 
-function generateProjects(projects){
-  const {projectName, projectLink, techStack, projectDesc} = projects;
 
-  return `
+function generateProjects(projects) {
+  if (!projects) { return ` `; }
+
+  const { projectName, projectLink, techStack, projectDesc } = projects;
+
+  const projectLines = [
+    projectName ? `\\resumeSubheading{${projectName}}{}{\\href{${projectLink}}{\\faGithub \\hspace{1mm} Repository}}{}` : "",
+    techStack ? `\\resumeItem{Tech Stack - ${techStack}}` : "",
+    projectDesc ? `\\resumeItem{${projectDesc}}` : ""
+  ].filter(Boolean).join("\n        ");
+
+  return projectLines
+    ? `
+    \\section{PROJECTS}
 \\vspace{1mm}
   \\resumeSubHeadingListStart
-    \\resumeSubheading{${projectName}}{}{\\href{${projectLink}}{\\faGithub \\hspace{1mm} Repository}}{}
-      \\resumeItemListStart
-        \\resumeItem{Tech Stack - ${techStack}}
-        \\resumeItem{${projectDesc}}
-      \\resumeItemListEnd
-  \\resumeSubHeadingListEnd
-  `
+    ${projectLines}
+  \\resumeSubHeadingListEnd`
+    : ` `;
 }
 
-function generateWork(work){
-  const {jobTitle, company, jobDesc, startDate, endDate} = work;
+function generateWork(work) {
+  if (!work) {return ` `};
+  const { jobTitle, company, jobDesc, fromDate, toDate } = work;
 
-  return `
+  const workLines = [
+    jobTitle ? `\\resumeSubheading{${jobTitle}}{${fromDate || ""} - ${toDate || ""}}{${company || ""}}{}` : "",
+    jobDesc ? `\\resumeItem{${jobDesc}}` : ""
+  ].filter(Boolean).join("\n        ");
+
+  return workLines
+    ? `
+    \\section{WORK EXPERIENCE}
 \\vspace{1mm}
   \\resumeSubHeadingListStart
-    \\resumeSubheading{${jobTitle}}{${startDate} - ${endDate}}{${company}}{}
-      \\resumeItemListStart
-        \\resumeItem{${jobDesc}}
-      \\resumeItemListEnd
-  \\resumeSubHeadingListEnd
-  `
+    ${workLines}
+  \\resumeSubHeadingListEnd`
+    : ` `;
 }
+
 
 export function generateLatexTemplate(data) {
   
@@ -139,29 +172,14 @@ ${resumeHeader}
 
 ${basics}
 
-\\section{ACADEMIC QUALIFICATIONS}
 ${education}
 
-\\section{SKILLS}
 ${skills}
 
-\\section{PROJECTS}
 ${projects}
 
-\\section{WORK EXPERIENCE}
 ${work}
 
-\\section{CERTIFICATIONS / AWARDS}
-  \\resumeSubHeadingListStart
-    \\resumeSubheading{Certification Name}{Year}{Issuing Organization}{}
-    \\resumeItem{Details of the certification/award.}
-  \\resumeSubHeadingListEnd
-  \\resumeSubHeadingListStart
-    \\resumeSubheading{Certification Name}{Year}{Issuing Organization}{}
-    \\resumeItem{Details of the certification/award.}
-  \\resumeSubHeadingListEnd
 \\end{document}
-
-
     `;
 }
