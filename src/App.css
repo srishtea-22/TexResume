@@ -60,7 +60,7 @@ main {
   left: 0;
   width: 30%;
   height: 4px;
-  background-color: #007bff;
+  background-color: #646cff;
   animation: slide 1.5s infinite linear;
 }
 .form {
@@ -69,6 +69,8 @@ main {
   justify-content: flex-start;
   flex-grow: 1;
   padding: 0 4rem;
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .form-input {
@@ -89,4 +91,13 @@ input {
 
 input:focus {
   border-bottom: 2px solid #535bf2; 
+}
+
+.remove-btn {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.add-btn {
+  width: auto;
 }
