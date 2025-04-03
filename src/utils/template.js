@@ -47,28 +47,32 @@ function generateProfile (profile) {
     \\end{center}`
 }
 
-function generateEducation(education) {
-  if (!education) { return ` `;}
+function generateEducation(educationList) {
+  if (!educationList || educationList.length === 0) {
+    return "";
+  }
 
-  const { degree, schoolName, schoolLocation, gpa, startDate, endDate } = education;
+  const educationEntries = educationList
+    .map(({ degree, schoolName, schoolLocation, gpa, startDate, endDate }) => {
+      const degreeLine = degree ? `\\textbf{${degree}}` : "";
+      const dateLine = startDate && endDate ? `\\textbf{${startDate} - ${endDate}}` : "";
+      const schoolLine = schoolName || schoolLocation ? `${schoolName || ""}, ${schoolLocation || ""}` : "";
+      const gpaLine = gpa ? `CGPA: ${gpa}` : "";
 
-  const degreeLine = degree ? `\\textbf{${degree}}` : "";
-  const dateLine = startDate && endDate ? `\\textbf{${startDate} - ${endDate}}` : "";
-  const schoolLine = schoolName || schoolLocation ? `${schoolName || ""}, ${schoolLocation || ""}` : "";
-  const gpaLine = gpa ? `CGPA: ${gpa}` : "";
-
-  const educationInfo = 
-  [degreeLine, dateLine].filter(Boolean).join(" \\> ") + " \\\\ " +
-  [schoolLine, gpaLine].filter(Boolean).join(" \\> ") + " \\\\[1ex]";
+      return [
+        [degreeLine, dateLine].filter(Boolean).join(" \\> ") + " \\\\ ",
+        [schoolLine, gpaLine].filter(Boolean).join(" \\> ") + " \\\\[1ex]"
+      ].join("\n    ");
+    })
+    .join("\n\n");
 
   return `
   \\section{ACADEMIC QUALIFICATIONS}
   \\begin{tabbing}
     \\hspace{16.5cm} \\= \\kill
-    ${educationInfo}
+    ${educationEntries}
   \\end{tabbing}`;
 }
-
 
 function generateSkills(skills) {
   if (!skills) { return ` `;}
@@ -91,36 +95,40 @@ function generateSkills(skills) {
     : ` `;
 }
 
-
 function generateProjects(projects) {
   if (!projects) { return ` `; }
 
-  const { projectName, projectLink, techStack, projectDesc } = projects;
-
-  const projectLines = [
-    projectName ? `\\resumeSubheading{${projectName}}{}{\\href{${projectLink}}{\\faGithub \\hspace{1mm} Repository}}{}` : "",
-    techStack ? `\\resumeItem{Tech Stack - ${techStack}}` : "",
-    projectDesc ? `\\resumeItem{${projectDesc}}` : ""
-  ].filter(Boolean).join("\n        ");
+  const projectLines = projects.map(({ projectName, projectLink, techStack, projectDesc }) => {
+    return [
+      projectName ? `\\resumeSubheading{${projectName}}{}{\\href{${projectLink}}{\\faGithub \\hspace{1mm} Repository}}{}` : "",
+      "\\resumeItemListStart",
+      techStack ? `  \\resumeItem{Tech Stack - ${techStack}}` : "",
+      projectDesc ? `  \\resumeItem{${projectDesc}}` : "",
+      "\\resumeItemListEnd"
+    ].filter(Boolean).join("\n        ");    
+  }).filter(Boolean).join("\n\n"); 
 
   return projectLines
     ? `
     \\section{PROJECTS}
-\\vspace{1mm}
-  \\resumeSubHeadingListStart
+    \\vspace{1mm}
+    \\resumeSubHeadingListStart
     ${projectLines}
-  \\resumeSubHeadingListEnd`
+    \\resumeSubHeadingListEnd`
     : ` `;
 }
 
 function generateWork(work) {
   if (!work) {return ` `};
-  const { jobTitle, company, jobDesc, fromDate, toDate } = work;
 
-  const workLines = [
-    jobTitle ? `\\resumeSubheading{${jobTitle}}{${fromDate || ""} - ${toDate || ""}}{${company || ""}}{}` : "",
-    jobDesc ? `\\resumeItem{${jobDesc}}` : ""
-  ].filter(Boolean).join("\n        ");
+  const workLines = work.map(({ jobTitle, company, jobDesc, fromDate, toDate }) => {
+    return [
+      jobTitle ? `\\resumeSubheading{${jobTitle}}{${fromDate} - ${toDate}}{${company}}{}` : "",
+      "\\resumeItemListStart",
+      jobDesc ? `  \\resumeItem{${jobDesc}}` : "",
+      "\\resumeItemListEnd"
+    ].filter(Boolean).join("\n        ");
+  }).filter(Boolean).join("\n\n");
 
   return workLines
     ? `
@@ -131,7 +139,6 @@ function generateWork(work) {
   \\resumeSubHeadingListEnd`
     : ` `;
 }
-
 
 export function generateLatexTemplate(data) {
   
