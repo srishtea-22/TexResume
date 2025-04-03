@@ -45,8 +45,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<ProfileSection />}></Route>
                 <Route path="/education" element={<EducationSection />}></Route>
-                <Route path="/projects" element={<ProjectSection />}></Route>
                 <Route path="/skills" element={<SkillsSection />}></Route>
+                <Route path="/projects" element={<ProjectSection />}></Route>
                 <Route path="/work" element={<WorkSection />}></Route>
             </Routes>
         <div className="pdf-wrapper">
