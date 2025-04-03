@@ -6,3 +6,5 @@ Tech Stack -
 Frontend: React + Vite
 
 LaTeX Compilation: SwiftLaTeX (WASM)
+
+The LaTex template used in this project is a slightly modified version of [this template](https://www.overleaf.com/latex/templates/jakes-resume-anonymous/cstpnrbkhndn)
