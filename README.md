@@ -14,6 +14,4 @@ The LaTex template used in this project is a slightly modified version of [this 
 
 🚧 Under Maintenance 
 
-This project uses SwiftLaTeX to compile LaTeX in the browser. However, as of July 3, 2025, the [SwiftLaTeX CDN ](https://texlive2.swiftlatex.com) is down (Error 522 - Connection timed out), which prevents the engine from loading required files like swiftlatexpdftex.fmt.
-
-I'm currently working on a fix or workaround to restore functionality.
+I'm rewriting this project in Next.js to implement a server-side workaround and improve overall functionality. Stay tuned!
