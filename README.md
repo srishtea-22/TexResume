@@ -12,6 +12,8 @@ The LaTex template used in this project is a slightly modified version of [this 
 
 ![App Screenshot](./public/screenshot.png)
 
-🚧 Under Maintenance 
+⚠️ Known Issue
 
-I'm rewriting this project in Next.js to implement a server-side workaround and improve overall functionality. Stay tuned!
+This app currently does not function as expected due to an issue with the SwiftLaTeX CDN. 
+
+This is a [known problem](https://github.com/SwiftLaTeX/SwiftLaTeX/issues/105) reported in the SwiftLaTeX GitHub repository. Until it is resolved, PDF compilation is not supported in this app.
